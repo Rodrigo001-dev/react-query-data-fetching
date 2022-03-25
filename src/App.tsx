@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import axios from 'axios';
+import { useFetch } from "./hooks/useFetch";
 
 type Repository = {
   full_name: string;
@@ -7,18 +6,18 @@ type Repository = {
 };
 
 function App() {
-  const [repositories, setRepositories] = useState<Repository[]>([]);
+  // essa url vai retorna uma lista de repositórios
+  const { data: repositores } = useFetch<Repository[]>('https://api.github.com/users/Rodrigo001-de/repos');
 
-  useEffect(() => {
-    axios.get('https://api.github.com/users/Rodrigo001-de/repos')
-      .then(response => {
-        setRepositories(response.data);
-      });
-  }, []);
-  
   return (
     <ul>
-      {repositories.map(repo => {
+      {
+        /* 
+          tem que ter o ? porque eu determinei que o data pode ser nulo quando
+          a requisição a Api não finalizou e quando já carregou ele é presente
+        */
+      }
+      {repositores?.map(repo => {
         return (
           <li key={repo.full_name}>
             <strong>{repo.full_name}</strong>
