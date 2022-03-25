@@ -7,7 +7,8 @@ type Repository = {
 
 function App() {
   // essa url vai retorna uma lista de repositórios
-  const { data: repositores } = useFetch<Repository[]>('https://api.github.com/users/Rodrigo001-de/repos');
+  const { data: repositores, isFetching } = 
+  useFetch<Repository[]>('/users/Rodrigo001-de/repos');
 
   return (
     <ul>
@@ -17,6 +18,7 @@ function App() {
           a requisição a Api não finalizou e quando já carregou ele é presente
         */
       }
+      { isFetching && <p>Carregando...</p> }
       {repositores?.map(repo => {
         return (
           <li key={repo.full_name}>
