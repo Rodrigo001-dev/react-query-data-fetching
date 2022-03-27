@@ -1,14 +1,12 @@
-import { useFetch } from "./hooks/useFetch";
-
-type Repository = {
-  full_name: string;
-  description: string;
-};
+// type Repository = {
+//   full_name: string;
+//   description: string;
+// };
 
 function App() {
   // essa url vai retorna uma lista de repositórios
-  const { data: repositores, isFetching } = 
-  useFetch<Repository[]>('/users/Rodrigo001-de/repos');
+  // const { data: repositores, isFetching } = 
+  // useFetch<Repository[]>('/users/Rodrigo001-de/repos');
 
   return (
     <ul>
