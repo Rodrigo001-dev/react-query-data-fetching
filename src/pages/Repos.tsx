@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useQuery } from 'react-query';
+import { Link } from 'react-router-dom';
 
 type Repository = {
   full_name: string;
@@ -17,6 +18,12 @@ export function Repos() {
     const response = await axios.get('https://api.github.com/users/Rodrigo001-de/repos');
 
     return response.data;
+  }, {
+    // o staleTime é o quanto de tempo eu quero manter os dados em cache até eu
+    // falar que eles estão obsoletos, ou seja, quanto tempo demora para eu
+    // considerar os dados da listagem de repositórios obsoleto, ou seja, quanto
+    // quanto tempo para eu buscar esses dados de novo
+    staleTime: 1000 * 60, // 1 minuto
   });
   // essa url vai retorna uma lista de repositórios
   // const { data: repositores, isFetching } = 
@@ -34,7 +41,9 @@ export function Repos() {
       {data?.map(repo => {
         return (
           <li key={repo.full_name}>
-            <strong>{repo.full_name}</strong>
+            <Link to={`repos/${repo.full_name}`}>
+              {repo.full_name}
+            </Link>
             <p>{repo.description}</p>
           </li>
         );
